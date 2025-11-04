@@ -1,0 +1,57 @@
+.barra-busqueda {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px auto 40px auto;
+  max-width: 700px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 40px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.barra-busqueda input {
+  width: 100%;
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  outline: none;
+  font-size: 1.05rem;
+}
+
+.barra-busqueda input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.barra-busqueda button {
+  background: linear-gradient(90deg, var(--color-acento), var(--color-acento-sec));
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  flex-shrink: 0;
+}
+
+.barra-busqueda button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0, 224, 255, 0.5);
+}
+
+.icono-busqueda {
+  width: 22px;
+  height: 22px;
+  filter: brightness(0) invert(1);
+}

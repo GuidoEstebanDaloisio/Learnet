@@ -1,0 +1,42 @@
+.reseñas {
+  padding: 0 10px;
+}
+
+.reseñas h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  border-left: 4px solid var(--color-acento);
+  padding-left: 15px;
+}
+
+.reseña-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.reseña-texto {
+  font-style: italic;
+  color: var(--color-secundario);
+  margin-bottom: 10px;
+}
+
+.reseña-autor {
+  font-size: 0.9rem;
+  text-align: right;
+  color: var(--color-acento);
+}
+
+.reseña-rating {
+  color: var(--color-amarillo);
+}
+
+.btn-ver-mas-reseñas {
+  display: block;
+  text-align: center;
+  color: var(--color-acento);
+  font-weight: 600;
+  margin-top: 20px;
+  text-decoration: none;
+}

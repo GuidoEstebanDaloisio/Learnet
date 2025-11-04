@@ -1,0 +1,129 @@
+.filtros {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 25px;
+  width: 280px;
+  flex-shrink: 0;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+  height: fit-content;
+  color: var(--color-texto);
+}
+
+/* ---------- Título ---------- */
+.filtros h3 {
+  font-size: 1.4rem;
+  color: var(--color-texto);
+  font-weight: 600;
+}
+
+/* ---------- Sección de ordenamiento ---------- */
+.seccion-orden {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  width: 100%;
+}
+
+.seccion-orden span {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--color-texto);
+}
+
+.seccion-orden label {
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  color: var(--color-secundario);
+}
+
+.seccion-orden input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--color-secundario);
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.seccion-orden input[type="radio"]:checked {
+  border: 5px solid var(--color-acento);
+}
+
+/* ---------- Sección de disponibilidad ---------- */
+.seccion-disponibilidad {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.seccion-disponibilidad span:first-child {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--color-texto);
+}
+
+.fila-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  color: var(--color-secundario);
+}
+
+/* ---------- Interruptor (switch) ---------- */
+.interruptor {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+
+.interruptor input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.deslizador {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-acento-apagado);
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.deslizador::before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: var(--color-texto);
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+.interruptor input:checked + .deslizador {
+  background: linear-gradient(90deg, var(--color-acento), var(--color-acento-sec));
+}
+
+.interruptor input:checked + .deslizador::before {
+  transform: translateX(24px);
+}

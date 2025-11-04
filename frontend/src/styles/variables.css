@@ -1,0 +1,8 @@
+:root {
+  --color-fondo: linear-gradient(135deg, #1e2a78, #3b4cc0, #5a7fd3);
+  --color-acento: #00e0ff;
+  --color-acento-sec: #0099ff;
+  --color-acento-apagado: #616aa5;
+  --color-texto: #fff;
+  --color-secundario: rgba(255, 255, 255, 0.85);
+}

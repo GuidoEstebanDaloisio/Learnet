@@ -1,0 +1,72 @@
+.features {
+  text-align: center;
+  padding: 80px 60px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.features-new-style {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 40px 40px 60px 40px;
+  max-width: 900px;
+  margin: 0 auto 40px auto;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+.features-title {
+  color: #0b0b0b;
+  font-size: 1.9rem;
+  font-weight: 600;
+  margin: 0;
+  text-align: center;
+}
+
+.feature-box {
+  width: 30%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.feature-icon {
+  width: 130px;
+  height: 130px;
+  margin-bottom: 15px;
+}
+
+.feature-icon img {
+  width: 100%;
+  height: 100%;
+}
+
+.feature-box h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #1e2a78;
+}
+
+.feature-box p {
+  color: #6a6a6a;
+  font-size: 0.9rem;
+}
+
+/* Alinear 3 cajas en fila en pantallas grandes */
+@media (min-width: 901px) {
+  .features-new-style {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .features-title {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}

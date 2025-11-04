@@ -1,0 +1,25 @@
+@media (max-width: 900px) {
+  .explorar-contenido {
+    flex-direction: column;
+    padding: 20px 30px;
+  }
+
+  .filters {
+    width: 100%;
+  }
+
+  .mentores-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+
+  .navbar {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+}

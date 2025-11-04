@@ -1,0 +1,41 @@
+.perfil-acciones {
+  width: 350px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tarjeta-sesion {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+}
+
+.btn-solicitar-mentoria {
+  background: linear-gradient(90deg, var(--color-acento), var(--color-acento-sec));
+  border: none;
+  padding: 12px 25px;
+  border-radius: 30px;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 100%;
+}
+
+.tarjeta-reporte {
+  text-align: center;
+  padding: 15px;
+  border-radius: 15px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.reportar-link {
+  color: #f39c12;
+  text-decoration: none;
+  font-weight: 600;
+}

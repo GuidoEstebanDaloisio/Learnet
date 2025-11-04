@@ -1,0 +1,7 @@
+.explore-conteiner {
+  display: flex;
+  gap: 30px;
+  padding: 20px 60px 80px 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
