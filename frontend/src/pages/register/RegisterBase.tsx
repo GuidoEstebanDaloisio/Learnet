@@ -4,11 +4,15 @@ import { Footer } from "../../components/Footer";
 import "../../styles/register.css";
 import buttons from "../../styles/modules/buttons.module.css";
 import { useNavigate } from "react-router-dom";
+import { ROLES } from "../../constants/roles";
+import type { Rol } from "../../constants/roles";
+import { saveBaseUser } from "../../utils/session";
+
 
 export const RegisterBase: React.FC = () => {
   const [email, setEmail] = useState("");
   const [contraseña, setContraseña] = useState("");
-  const [rol, setRol] = useState("alumno");
+  const [rol, setRol] = useState<Rol>(ROLES.ALUMNO); // tipo literal
 
   const [mensaje, setMensaje] = useState("");
   const navigate = useNavigate();
@@ -21,17 +25,16 @@ export const RegisterBase: React.FC = () => {
       return;
     }
 
-    // Guardamos los datos base en sessionStorage
-    sessionStorage.setItem("baseUser", JSON.stringify({ email, contraseña, rol }));
+    saveBaseUser({ email, contraseña, rol });
 
-    // Redirigimos según el rol elegido
     switch (rol) {
-      case "mentor":
+      case ROLES.MENTOR:
         navigate("/registro/mentor");
         break;
-      case "admin":
+      case ROLES.ADMIN:
         navigate("/registro/admin");
         break;
+      case ROLES.ALUMNO:
       default:
         navigate("/registro/alumno");
         break;
@@ -66,7 +69,6 @@ export const RegisterBase: React.FC = () => {
                 id="password"
                 value={contraseña}
                 onChange={(e) => setContraseña(e.target.value)}
-
                 placeholder="••••••••"
                 required
               />
@@ -76,12 +78,12 @@ export const RegisterBase: React.FC = () => {
               <label>Seleccioná tu rol</label>
               <select
                 value={rol}
-                onChange={(e) => setRol(e.target.value)}
+                onChange={(e) => setRol(e.target.value as Rol)}
                 required
               >
-                <option value="alumno">Alumno</option>
-                <option value="mentor">Mentor</option>
-                <option value="admin">Administrador</option>
+                <option value={ROLES.ALUMNO}>Alumno</option>
+                <option value={ROLES.MENTOR}>Mentor</option>
+                <option value={ROLES.ADMIN}>Administrador</option>
               </select>
             </div>
 

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
+import { TODOS_LOS_ROLES, ROLES } from "../constants/roles";
 import { UsuarioModel } from "../models/Usuario";
 import { AlumnoModel } from "../models/Alumno";
 import { MentorModel } from "../models/Mentor";
@@ -11,13 +12,13 @@ export const registrarUsuario = async (req: Request, res: Response) => {
     const { email, contraseña, rol, codigoAcceso } = req.body;
 
     // 🔹 Validar rol
-    if (!["admin", "alumno", "mentor"].includes(rol)) {
+    if (!TODOS_LOS_ROLES.includes(rol)) {
       return res.status(400).json({ error: "Rol inválido" });
     }
 
     // 🔹 Validar código de acceso si el rol es admin
-    if (rol === "admin") {
-      const codigoCorrecto = process.env.CODIGO_ACCESO_ADMIN; 
+    if (rol === ROLES.ADMIN) {
+      const codigoCorrecto = process.env.CODIGO_ACCESO_ADMIN;
       if (codigoAcceso !== codigoCorrecto) {
         return res.status(403).json({ error: "Código de acceso inválido" });
       }

@@ -5,6 +5,7 @@ import { Navbar } from "../../components/Navbar";
 import { Footer } from "../../components/Footer";
 import "../../styles/register.css";
 import buttons from "../../styles/modules/buttons.module.css";
+import { getBaseUser, clearBaseUser } from "../../utils/session";
 
 export const RegisterMentor: React.FC = () => {
   const [data, setData] = useState({
@@ -30,11 +31,11 @@ export const RegisterMentor: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const baseUser = JSON.parse(sessionStorage.getItem("baseUser") || "{}");
+    const baseUser = getBaseUser();
+    if (!baseUser) return setMensaje("Error: faltan datos base");
+
     const fullUser = {
-      email: baseUser.email,
-      contraseña: baseUser.password,
-      rol: baseUser.role,
+      ...baseUser,
       nombre: data.nombre,
       apellido: data.apellido,
       fechaNacimiento: data.fechaNacimiento,
@@ -50,6 +51,7 @@ export const RegisterMentor: React.FC = () => {
     try {
       await registrarUsuario(fullUser);
       setMensaje("Mentor registrado correctamente ✅");
+      clearBaseUser();
       setTimeout(() => navigate("/login"), 1000);
     } catch (error: any) {
       setMensaje(error.response?.data?.error || "Error al registrar mentor ❌");
@@ -63,6 +65,7 @@ export const RegisterMentor: React.FC = () => {
         <div className="register-card wide">
           <h2>Registro de Mentor</h2>
           <form onSubmit={handleSubmit}>
+            {/* Campos del mentor */}
             <div className="form-group">
               <label>Nombre</label>
               <input name="nombre" value={data.nombre} onChange={handleChange} required />
@@ -87,21 +90,11 @@ export const RegisterMentor: React.FC = () => {
             </div>
             <div className="form-group">
               <label>Presentación breve</label>
-              <textarea
-                name="presentacion"
-                value={data.presentacion}
-                onChange={handleChange}
-                rows={2}
-              ></textarea>
+              <textarea name="presentacion" value={data.presentacion} onChange={handleChange} rows={2} />
             </div>
             <div className="form-group">
               <label>Biografía</label>
-              <textarea
-                name="biografia"
-                value={data.biografia}
-                onChange={handleChange}
-                rows={3}
-              ></textarea>
+              <textarea name="biografia" value={data.biografia} onChange={handleChange} rows={3} />
             </div>
             <div className="form-group">
               <label>Habilidades clave</label>
@@ -109,30 +102,15 @@ export const RegisterMentor: React.FC = () => {
             </div>
             <div className="form-group">
               <label>Experiencia</label>
-              <textarea
-                name="experiencia"
-                value={data.experiencia}
-                onChange={handleChange}
-                rows={3}
-              ></textarea>
+              <textarea name="experiencia" value={data.experiencia} onChange={handleChange} rows={3} />
             </div>
             <div className="form-group">
               <label>Precio por clase (ARS)</label>
-              <input
-                type="number"
-                name="precioClase"
-                value={data.precioClase}
-                onChange={handleChange}
-                required
-              />
+              <input type="number" name="precioClase" value={data.precioClase} onChange={handleChange} required />
             </div>
             <div className="form-group">
               <label>Tiempo de respuesta promedio</label>
-              <input
-                name="tiempoRespuesta"
-                value={data.tiempoRespuesta}
-                onChange={handleChange}
-              />
+              <input name="tiempoRespuesta" value={data.tiempoRespuesta} onChange={handleChange} />
             </div>
 
             <button type="submit" className={buttons.btn}>
