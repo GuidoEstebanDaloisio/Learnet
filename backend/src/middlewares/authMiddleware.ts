@@ -13,8 +13,8 @@ export const verificarToken = (
   try {
     const authHeader = req.headers.authorization;
 
-    if (!authHeader) {
-      return res.status(401).json({ error: "Token no proporcionado" });
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({ error: "Token no proporcionado o mal formado" });
     }
 
     const token = authHeader.split(" ")[1]; // formato: "Bearer <token>"
@@ -24,6 +24,7 @@ export const verificarToken = (
 
     next();
   } catch (error) {
+    console.error("Error en verificarToken:", error);
     return res.status(401).json({ error: "Token inválido o expirado" });
   }
 };

@@ -1,41 +1,15 @@
-// src/models/Usuario.ts
-import { Schema, model, Document } from "mongoose";
-import bcrypt from "bcrypt";
-
-export type TRol = "mentor" | "alumno" | "admin";
+import mongoose, { Schema, Document } from "mongoose";
 
 export interface IUsuario extends Document {
-  nombre: string;
   email: string;
-  password: string; // hashed
-  rol: TRol;
-  fechaRegistro: Date;
-  compararPassword(passwordPlain: string): Promise<boolean>;
+  contraseña: string;
+  rol: "admin" | "alumno" | "mentor";
 }
 
 const UsuarioSchema = new Schema<IUsuario>({
-  nombre: { type: String, required: true },
-  email: { type: String, required: true, unique: true, lowercase: true, trim: true },
-  password: { type: String, required: true },
-  rol: { type: String, enum: ["mentor", "alumno", "admin"], default: "alumno" },
-  fechaRegistro: { type: Date, default: () => new Date() },
+  email: { type: String, required: true, unique: true },
+  contraseña: { type: String, required: true },
+  rol: { type: String, enum: ["admin", "alumno", "mentor"], required: true },
 });
 
-// Hash de la contraseña antes de guardar (solo si fue modificada)
-UsuarioSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
-  try {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-    return next();
-  } catch (err) {
-    return next(err as any);
-  }
-});
-
-// Método para comparar password (instancia)
-UsuarioSchema.methods.compararPassword = async function (passwordPlain: string) {
-  return bcrypt.compare(passwordPlain, this.password);
-};
-
-export const UsuarioModel = model<IUsuario>("Usuario", UsuarioSchema);
+export const UsuarioModel = mongoose.model<IUsuario>("Usuario", UsuarioSchema);

@@ -1,39 +1,31 @@
-import { Router, Response } from "express";
-import { RequestConUsuario, verificarToken } from "../middlewares/authMiddleware";
+import { Request, Response } from "express";
+import { RequestConUsuario } from "../middlewares/authMiddleware";
 import { UsuarioModel } from "../models/Usuario";
 import { AlumnoModel } from "../models/Alumno";
 import { MentorModel } from "../models/Mentor";
 import { AdminModel } from "../models/Admin";
 
-const router = Router();
-
-// ✅ Ruta protegida: obtener perfil completo según el rol
-router.get("/perfil", verificarToken, async (req: RequestConUsuario, res: Response) => {
+export const obtenerPerfil = async (req: RequestConUsuario, res: Response) => {
   try {
     if (!req.usuario) {
       return res.status(401).json({ error: "No autorizado" });
     }
 
     const { id, rol } = req.usuario;
+
+    // Buscar los datos según el rol
     let perfil: any;
 
-    // Buscar información detallada según el tipo de usuario
     switch (rol) {
       case "alumno":
-        perfil = await AlumnoModel.findOne({ usuario: id })
-          .populate("usuario", "email rol");
+        perfil = await AlumnoModel.findOne({ usuario: id }).populate("usuario", "email rol");
         break;
-
       case "mentor":
-        perfil = await MentorModel.findOne({ usuario: id })
-          .populate("usuario", "email rol");
+        perfil = await MentorModel.findOne({ usuario: id }).populate("usuario", "email rol");
         break;
-
       case "admin":
-        perfil = await AdminModel.findOne({ usuario: id })
-          .populate("usuario", "email rol");
+        perfil = await AdminModel.findOne({ usuario: id }).populate("usuario", "email rol");
         break;
-
       default:
         return res.status(400).json({ error: "Rol desconocido" });
     }
@@ -47,6 +39,4 @@ router.get("/perfil", verificarToken, async (req: RequestConUsuario, res: Respon
     console.error("Error al obtener perfil:", error);
     res.status(500).json({ error: "Error al obtener perfil" });
   }
-});
-
-export default router;
+};

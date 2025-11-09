@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { registrarUsuario } from "../../services/authService";
 import { Navbar } from "../../components/Navbar";
 import { Footer } from "../../components/Footer";
 import "../../styles/register.css";
@@ -18,16 +20,40 @@ export const RegisterMentor: React.FC = () => {
     tiempoRespuesta: "",
   });
 
+  const [mensaje, setMensaje] = useState("");
+  const navigate = useNavigate();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     const baseUser = JSON.parse(sessionStorage.getItem("baseUser") || "{}");
-    const fullUser = { ...baseUser, ...data };
-    console.log("Usuario Mentor:", fullUser);
-    // Aquí podrías enviar los datos al backend con fetch/axios
+    const fullUser = {
+      email: baseUser.email,
+      contraseña: baseUser.password,
+      rol: baseUser.role,
+      nombre: data.nombre,
+      apellido: data.apellido,
+      fechaNacimiento: data.fechaNacimiento,
+      titulo: data.titulo,
+      presentacion: data.presentacion,
+      biografia: data.biografia,
+      habilidadesClave: data.habilidades,
+      experiencia: data.experiencia,
+      precioPorClase: Number(data.precioClase),
+      tiempoRespuesta: data.tiempoRespuesta,
+    };
+
+    try {
+      await registrarUsuario(fullUser);
+      setMensaje("Mentor registrado correctamente ✅");
+      setTimeout(() => navigate("/login"), 1000);
+    } catch (error: any) {
+      setMensaje(error.response?.data?.error || "Error al registrar mentor ❌");
+    }
   };
 
   return (
@@ -35,22 +61,18 @@ export const RegisterMentor: React.FC = () => {
       <Navbar />
       <main className="register-container">
         <div className="register-card wide">
-          <h2>Datos del mentor</h2>
-          <p className="subtitle">Completá tu perfil profesional</p>
-
-          <form className="register-form grid" onSubmit={handleSubmit}>
+          <h2>Registro de Mentor</h2>
+          <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label>Nombre</label>
               <input name="nombre" value={data.nombre} onChange={handleChange} required />
             </div>
-
             <div className="form-group">
               <label>Apellido</label>
               <input name="apellido" value={data.apellido} onChange={handleChange} required />
             </div>
-
             <div className="form-group">
-              <label>Fecha de nacimiento</label>
+              <label>Fecha de Nacimiento</label>
               <input
                 type="date"
                 name="fechaNacimiento"
@@ -59,81 +81,64 @@ export const RegisterMentor: React.FC = () => {
                 required
               />
             </div>
-
             <div className="form-group">
-              <label>Título / profesión</label>
-              <input name="titulo" value={data.titulo} onChange={handleChange} required />
+              <label>Título profesional</label>
+              <input name="titulo" value={data.titulo} onChange={handleChange} />
             </div>
-
-            <div className="form-group full">
-              <label>Presentación</label>
+            <div className="form-group">
+              <label>Presentación breve</label>
               <textarea
                 name="presentacion"
                 value={data.presentacion}
                 onChange={handleChange}
-                rows={3}
-                placeholder="Escribí una invitación breve que verán tus futuros alumnos"
-              />
+                rows={2}
+              ></textarea>
             </div>
-
-            <div className="form-group full">
+            <div className="form-group">
               <label>Biografía</label>
               <textarea
                 name="biografia"
                 value={data.biografia}
                 onChange={handleChange}
                 rows={3}
-                placeholder="Contá brevemente tu trayectoria y formación"
-              />
+              ></textarea>
             </div>
-
             <div className="form-group">
               <label>Habilidades clave</label>
-              <input
-                name="habilidades"
-                value={data.habilidades}
-                onChange={handleChange}
-                placeholder="Ej: Matemática, liderazgo, Python..."
-              />
+              <input name="habilidades" value={data.habilidades} onChange={handleChange} />
             </div>
-
-            <div className="form-group full">
+            <div className="form-group">
               <label>Experiencia</label>
               <textarea
                 name="experiencia"
                 value={data.experiencia}
                 onChange={handleChange}
                 rows={3}
-                placeholder="Describí tu experiencia relevante"
-              />
+              ></textarea>
             </div>
-
             <div className="form-group">
-              <label>Precio estimado por clase</label>
+              <label>Precio por clase (ARS)</label>
               <input
+                type="number"
                 name="precioClase"
                 value={data.precioClase}
                 onChange={handleChange}
-                placeholder="Ej: 5000"
-                type="number"
+                required
               />
             </div>
-
             <div className="form-group">
-              <label>Tiempo de respuesta (horas)</label>
+              <label>Tiempo de respuesta promedio</label>
               <input
                 name="tiempoRespuesta"
                 value={data.tiempoRespuesta}
                 onChange={handleChange}
-                placeholder="Ej: 2 horas"
               />
             </div>
 
-            <div className="form-group full">
-              <button type="submit" className={buttons.btn}>
-                Finalizar registro
-              </button>
-            </div>
+            <button type="submit" className={buttons.btn}>
+              Finalizar Registro
+            </button>
+            {mensaje && <p className="mensaje">{mensaje}</p>}
           </form>
         </div>
       </main>

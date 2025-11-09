@@ -1,19 +1,18 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-export interface IAlumno extends Document {
+export interface IAdmin extends Document {
   usuario: mongoose.Types.ObjectId;
   nombre: string;
   apellido: string;
   fechaNacimiento: Date;
-  nivelEducativo?: string;
 }
 
-const AlumnoSchema = new Schema<IAlumno>({
+const AdminSchema = new Schema<IAdmin>({
   usuario: { type: Schema.Types.ObjectId, ref: "Usuario", required: true },
   nombre: { type: String, required: true },
   apellido: { type: String, required: true },
   fechaNacimiento: { type: Date, required: true },
-  nivelEducativo: { type: String },
 });
 
-export const AlumnoModel = mongoose.model<IAlumno>("Alumno", AlumnoSchema);
+export const AdminModel = mongoose.model<IAdmin>("Admin", AdminSchema);
+

@@ -1,57 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TarjetaMentor } from "./TarjetaMentor";
+import { obtenerMentores } from "../../../services/mentorService";
 
 interface GridMentoresProps {
   mostrarNoDisponibles: boolean;
 }
 
 export const GridMentores: React.FC<GridMentoresProps> = ({ mostrarNoDisponibles }) => {
-  const mentores = [
-    {
-      nombre: "Sofía G. Ruiz",
-      area: "Desarrollo Web Full Stack",
-      calificacion: 4.9,
-      opiniones: 125,
-      disponible: false,
-      imagen: "/img/Mentora_perfil.png",
-      enlace: "mentor-no-disponible-detalle.html",
-    },
-    {
-      nombre: "Juan P. Ramírez",
-      area: "Liderazgo y Gestión",
-      calificacion: 4.8,
-      opiniones: 89,
-      disponible: true,
-      imagen: "/img/Mentor_perfil.png",
-      enlace: "mentor-disponible-detalle.html",
-    },
-    {
-      nombre: "Martín L. Fernández",
-      area: "Diseño UX/UI",
-      calificacion: 5.0,
-      opiniones: 200,
-      disponible: true,
-      imagen: "/img/Mentor_perfil.png",
-    },
-    {
-      nombre: "Carlos A. Morales",
-      area: "Marketing Digital y SEO",
-      calificacion: 4.7,
-      opiniones: 150,
-      disponible: true,
-      imagen: "/img/Mentor_perfil.png",
-    },
-    {
-      nombre: "Laura V. Torres",
-      area: "Ciencia de Datos (Python)",
-      calificacion: 4.9,
-      opiniones: 95,
-      disponible: false,
-      imagen: "/img/Mentora_perfil.png",
-    },
-  ];
+  const [mentores, setMentores] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  // 🔹 Filtramos según el estado del filtro
+  useEffect(() => {
+    const fetchMentores = async () => {
+      try {
+        const data = await obtenerMentores();
+        setMentores(data);
+      } catch (err: any) {
+        setError("Error al cargar mentores");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMentores();
+  }, []);
+
+  if (loading) return <p>Cargando mentores...</p>;
+  if (error) return <p>{error}</p>;
+
   const mentoresFiltrados = mentores.filter(
     (mentor) => mostrarNoDisponibles || mentor.disponible
   );
@@ -61,7 +38,15 @@ export const GridMentores: React.FC<GridMentoresProps> = ({ mostrarNoDisponibles
       <h2>Explora Mentores Destacados</h2>
       <div className="mentores-grid">
         {mentoresFiltrados.map((mentor, index) => (
-          <TarjetaMentor key={index} {...mentor} />
+          <TarjetaMentor
+            key={mentor._id || index}
+            nombre={`${mentor.nombre} ${mentor.apellido}`}
+            area={mentor.titulo || "Especialidad no especificada"}
+            calificacion={5.0} // Podés reemplazar luego con un promedio real
+            opiniones={0}
+            disponible={mentor.disponible ?? true}
+            imagen="/img/Mentor_perfil.png"
+          />
         ))}
       </div>
     </section>

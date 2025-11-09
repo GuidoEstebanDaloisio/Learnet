@@ -7,39 +7,54 @@ import { useNavigate } from "react-router-dom";
 
 export const RegisterBase: React.FC = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [role, setRole] = useState("alumno");
+  const [contraseña, setContraseña] = useState("");
+  const [rol, setRol] = useState("alumno");
+
+  const [mensaje, setMensaje] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Guardamos temporalmente los datos en sessionStorage
-    sessionStorage.setItem("baseUser", JSON.stringify({ email, password, role }));
+    if (!email || !contraseña) {
+      setMensaje("Por favor completá todos los campos.");
+      return;
+    }
 
-    // Redirigimos según el rol
-    if (role === "alumno") navigate("/registro/alumno");
-    if (role === "mentor") navigate("/registro/mentor");
-    if (role === "admin") navigate("/registro/admin");
+    // Guardamos los datos base en sessionStorage
+    sessionStorage.setItem("baseUser", JSON.stringify({ email, contraseña, rol }));
+
+    // Redirigimos según el rol elegido
+    switch (rol) {
+      case "mentor":
+        navigate("/registro/mentor");
+        break;
+      case "admin":
+        navigate("/registro/admin");
+        break;
+      default:
+        navigate("/registro/alumno");
+        break;
+    }
   };
 
   return (
     <>
       <Navbar />
       <main className="register-container">
-        <div className="register-card narrow">
+        <div className="register-card">
           <h2>Crear cuenta</h2>
-          <p className="subtitle">Completá los datos iniciales</p>
+          <p className="subtitle">Completá tus datos para comenzar</p>
 
-          <form className="register-form" onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="email">Correo electrónico</label>
               <input
                 type="email"
                 id="email"
-                placeholder="ejemplo@correo.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                placeholder="ejemplo@correo.com"
                 required
               />
             </div>
@@ -49,19 +64,19 @@ export const RegisterBase: React.FC = () => {
               <input
                 type="password"
                 id="password"
+                value={contraseña}
+                onChange={(e) => setContraseña(e.target.value)}
+
                 placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="role">Tipo de usuario</label>
+              <label>Seleccioná tu rol</label>
               <select
-                id="role"
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
+                value={rol}
+                onChange={(e) => setRol(e.target.value)}
                 required
               >
                 <option value="alumno">Alumno</option>
@@ -73,6 +88,8 @@ export const RegisterBase: React.FC = () => {
             <button type="submit" className={buttons.btn}>
               Continuar
             </button>
+
+            {mensaje && <p className="mensaje">{mensaje}</p>}
           </form>
         </div>
       </main>
