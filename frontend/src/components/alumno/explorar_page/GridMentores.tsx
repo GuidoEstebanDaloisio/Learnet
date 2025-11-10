@@ -30,25 +30,25 @@ export const GridMentores: React.FC<GridMentoresProps> = ({ mostrarNoDisponibles
   if (error) return <p>{error}</p>;
 
   const mentoresFiltrados = mentores.filter(
-    (mentor) => mostrarNoDisponibles || mentor.disponible
+    (mentor) => mostrarNoDisponibles || mentor.estaDisponible
   );
 
   return (
     <section className="mentores-destacados">
       <h2>Explora Mentores Destacados</h2>
       <div className="mentores-grid">
-        {mentoresFiltrados.map((mentor) => (
-          <TarjetaMentor
-            key={mentor._id}
-            id={mentor._id}
-            nombre={`${mentor.nombre} ${mentor.apellido}`}
-            area={mentor.titulo || "Especialidad no especificada"}
-            calificacion={mentor.calificacion ?? 5.0}
-            opiniones={mentor.opiniones ?? 0}
-            disponible={mentor.disponible ?? true}
-            imagen="/img/Mentor_perfil.png"
-          />
-        ))}
+        {mentoresFiltrados.map((mentor) => (<TarjetaMentor
+  key={mentor._id}
+  id={mentor._id}
+  nombre={`${mentor.nombre} ${mentor.apellido}`}
+  area={mentor.titulo || "Especialidad no especificada"}
+  calificacion={mentor.calificacion ?? 5.0}
+  opiniones={mentor.opiniones ?? 0}
+  disponible={mentor.estaDisponible ?? true}
+  imagen="/img/Mentor_perfil.png"
+  precio={mentor.precioPorClase}
+/>
+))}
       </div>
     </section>
   );

@@ -11,7 +11,9 @@ export interface IMentor extends Document {
   habilidadesClave: string[];
   experiencia: string;
   precioPorClase: number;
-  tiempoRespuesta: string;
+  tiempoRespuesta: number;
+  estaDisponible: boolean;
+  fechaRegistro: Date;
 }
 
 const MentorSchema = new Schema<IMentor>({
@@ -25,7 +27,10 @@ const MentorSchema = new Schema<IMentor>({
   habilidadesClave: [{ type: String }],
   experiencia: { type: String, required: true },
   precioPorClase: { type: Number, required: true },
-  tiempoRespuesta: { type: String, required: true },
+  tiempoRespuesta: { type: Number, required: true },
+  estaDisponible: { type: Boolean, default: true },
+  fechaRegistro: { type: Date, default: Date.now },
+
 });
 
 export const MentorModel = mongoose.model<IMentor>("Mentor", MentorSchema);

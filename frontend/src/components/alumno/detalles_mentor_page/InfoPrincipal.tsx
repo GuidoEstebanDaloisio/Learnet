@@ -36,7 +36,7 @@ export const InfoPrincipal: React.FC<InfoPrincipalProps> = ({ mentor }) => {
           <div className="stats">
             <span>⭐ <strong>4.8</strong> (89 reseñas)</span>
             <span>✅ <strong>75+</strong> Mentorías completadas</span>
-            <span>🗓️ Responde en {mentor.tiempoRespuesta}</span>
+            <span>🗓️ Responde en {mentor.tiempoRespuesta} hs o menos</span>
           </div>
 
           <p className="bio-corta">"{mentor.presentacion}"</p>
@@ -89,9 +89,21 @@ export const InfoPrincipal: React.FC<InfoPrincipalProps> = ({ mentor }) => {
 
       <hr />
 
-      <section className="fecha-union">
-        <p>{mentor.nombre} se unió a la plataforma el <strong>{mentor.fechaRegistro || "12 de marzo de 2021"}</strong>.</p>
-      </section>
+<section className="fecha-union">
+  <p>
+    {mentor.nombre} se unió a la plataforma el{" "}
+    <strong>
+      {mentor.fechaRegistro
+        ? new Date(mentor.fechaRegistro).toLocaleDateString("es-ES", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          })
+        : "fecha desconocida"}
+    </strong>.
+  </p>
+</section>
+
     </div>
   );
 };

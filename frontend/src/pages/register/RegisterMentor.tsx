@@ -89,7 +89,7 @@ export const RegisterMentor: React.FC = () => {
               <input name="titulo" value={data.titulo} onChange={handleChange} />
             </div>
             <div className="form-group">
-              <label>Presentación breve</label>
+              <label>Presentación breve (será lo primero que veran al entrar en tu perfil)</label>
               <textarea name="presentacion" value={data.presentacion} onChange={handleChange} rows={2} />
             </div>
             <div className="form-group">
@@ -109,7 +109,7 @@ export const RegisterMentor: React.FC = () => {
               <input type="number" name="precioClase" value={data.precioClase} onChange={handleChange} required />
             </div>
             <div className="form-group">
-              <label>Tiempo de respuesta promedio</label>
+              <label>Tiempo de respuesta promedio (en horas)</label>
               <input name="tiempoRespuesta" value={data.tiempoRespuesta} onChange={handleChange} />
             </div>
 
