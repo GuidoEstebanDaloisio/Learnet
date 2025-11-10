@@ -1,16 +1,25 @@
-import React from "react";
 import "./acciones.css";
 
-export const Acciones: React.FC = () => {
+interface AccionesProps {
+  mentor: {
+    nombre: string;
+    precioPorClase: number;
+    disponible?: boolean;
+  };
+}
+
+export const Acciones: React.FC<AccionesProps> = ({ mentor }) => {
   return (
     <aside className="perfil-acciones">
       <div className="tarjeta-sesion">
         <h3>¿Listo para comenzar?</h3>
-        <p className="texto-sesion">Juan está disponible ahora. ¡Reserva tu sesión!</p>
+        <p className="texto-sesion">
+          {mentor.nombre} {mentor.disponible ? "está disponible ahora. ¡Reserva tu sesión!" : "no está disponible en este momento."}
+        </p>
 
         <div className="precio">
           <div className="precio-label">Precio estimado</div>
-          <div className="precio-monto">$25 USD / Sesión</div>
+          <div className="precio-monto">${mentor.precioPorClase} ARS / Sesión</div>
         </div>
 
         <button className="btn-solicitar-mentoria">Reservar Sesión</button>

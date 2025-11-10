@@ -15,7 +15,7 @@ export const NavbarAlumno: React.FC = () => {
             <nav>
                 <ul className="nav-links">
                     <li>
-                        <Link to="/explorarAlumno" className="nav-link">
+                        <Link to="/alumno/explorar-mentores" className="nav-link">
                             Explorar
                         </Link>
                     </li>

@@ -20,7 +20,7 @@ function App() {
         <Route path="/registro/mentor" element={<RegisterMentor />} />
         <Route path="/registro/admin" element={<RegisterAdmin />} />
         <Route path="/alumno/explorar-mentores" element={<Explorar />} />
-        <Route path="/alumno/detalles-mentor" element={<DetallesMentor />} />
+        <Route path="/alumno/detalles-mentor/:id" element={<DetallesMentor />} />
       </Routes>
     </Router>
   );

@@ -1,25 +1,26 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./tarjetas-mentores.css";
-import styles from "../../../styles/modules/buttons.module.css"; 
+import styles from "../../../styles/modules/buttons.module.css";
 
 interface TarjetaMentorProps {
+  id: string;
   nombre: string;
   area: string;
   calificacion: number;
   opiniones: number;
   disponible: boolean;
   imagen: string;
-  enlace?: string;
 }
 
 export const TarjetaMentor: React.FC<TarjetaMentorProps> = ({
+  id,
   nombre,
   area,
   calificacion,
   opiniones,
   disponible,
   imagen,
-  enlace,
 }) => {
   return (
     <div className={`mentor-card ${disponible ? "disponible" : "no-disponible"}`}>
@@ -35,15 +36,10 @@ export const TarjetaMentor: React.FC<TarjetaMentorProps> = ({
       </p>
 
       <div className="acciones">
-        {enlace ? (
-          <a href={enlace} className={styles.btn}>
-            Ver Mentor
-          </a>
-        ) : (
-          <button className={styles.btn}>Ver Mentor</button>
-        )}
+        <Link to={`/alumno/detalles-mentor/${id}`} className={styles.btn}>
+          Ver Mentor
+        </Link>
       </div>
     </div>
   );
 };
-

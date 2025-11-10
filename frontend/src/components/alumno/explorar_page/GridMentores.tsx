@@ -37,13 +37,14 @@ export const GridMentores: React.FC<GridMentoresProps> = ({ mostrarNoDisponibles
     <section className="mentores-destacados">
       <h2>Explora Mentores Destacados</h2>
       <div className="mentores-grid">
-        {mentoresFiltrados.map((mentor, index) => (
+        {mentoresFiltrados.map((mentor) => (
           <TarjetaMentor
-            key={mentor._id || index}
+            key={mentor._id}
+            id={mentor._id}
             nombre={`${mentor.nombre} ${mentor.apellido}`}
             area={mentor.titulo || "Especialidad no especificada"}
-            calificacion={5.0} // Podés reemplazar luego con un promedio real
-            opiniones={0}
+            calificacion={mentor.calificacion ?? 5.0}
+            opiniones={mentor.opiniones ?? 0}
             disponible={mentor.disponible ?? true}
             imagen="/img/Mentor_perfil.png"
           />
