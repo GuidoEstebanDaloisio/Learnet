@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "../styles/components/navbar.css";
 import "../utils/scroll.js";
 
-export const NavbarAlumno: React.FC = () => {
+export const NavbarMentor: React.FC = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -21,13 +21,7 @@ export const NavbarAlumno: React.FC = () => {
       <nav>
         <ul className="nav-links">
           <li>
-            <Link to="/alumno/explorar-mentores" className="nav-link">
-              Explorar
-            </Link>
-          </li>
-
-          <li>
-            <Link to="/mentoriasAlumno" className="nav-link">
+            <Link to="/mentoriasMentor" className="nav-link">
               Mis mentorías
             </Link>
           </li>
@@ -44,7 +38,7 @@ export const NavbarAlumno: React.FC = () => {
 
           {/* Perfil */}
           <li>
-            <Link to="/alumno/perfil" className="nav-link">
+            <Link to="/mentor/perfil" className="nav-link">
               Perfil
             </Link>
           </li>

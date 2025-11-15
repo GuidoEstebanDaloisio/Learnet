@@ -1,0 +1,117 @@
+
+/* ------------------------------------ */
+/* Ajustes específicos para el Perfil del Alumno */
+/* ------------------------------------ */
+
+/* Reutilizamos 'encabezado-mentor' pero cambiamos el nombre de la clase para claridad */
+.encabezado-alumno {
+    /* Mantenemos el mismo estilo de la tarjeta principal */
+    display: flex;
+    gap: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajuste de la foto de perfil */
+.foto-perfil {
+    width: 180px;
+    height: 180px;
+    min-width: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--color-acento);
+    box-shadow: 0 0 15px rgba(0, 224, 255, 0.5);}
+
+
+
+/* Botón para editar perfil dentro del encabezado */
+.btn-editar-perfil {
+    background: var(--color-acento-sec);
+    border: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+    font-size: 0.95rem;
+    margin-top: 15px;
+}
+
+.btn-editar-perfil:hover {
+    background: var(--color-acento);
+}
+
+/* ------------------------------------ */
+/* Sección de Datos Personales */
+/* ------------------------------------ */
+
+.datos-personales h2 {
+    /* Reutilizamos el estilo de encabezados de mentor-detalle.css */
+    font-size: 2rem;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--color-acento);
+    padding-left: 15px;
+}
+
+.lista-datos {
+    display: grid;
+    /* Diseño en 2 columnas para pantallas grandes, o una si los datos son largos */
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+    gap: 15px;
+    padding: 0 10px;
+}
+
+.dato-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 4px solid var(--color-acento-sec);
+    display: flex;
+    flex-direction: column;
+}
+
+.dato-etiqueta {
+    font-size: 0.9rem;
+    color: var(--color-acento);
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.dato-valor {
+    font-size: 1.1rem;
+    color: var(--color-texto);
+    font-weight: 400;
+    word-break: break-word; /* Para manejar emails o datos largos */
+}
+
+/* ------------------------------------ */
+/* Aside de Acciones del Alumno (Ajustes) */
+/* ------------------------------------ */
+
+/* Reutilizamos 'perfil-acciones' y 'tarjeta-sesion' para la estética */
+.perfil-acciones-alumno .tarjeta-sesion {
+    /* El estilo de la tarjeta de sesión es perfecto para un panel de ajustes */
+    padding: 25px;
+}
+
+.perfil-acciones-alumno .btn-solicitar-mentoria {
+    /* Reutilizamos el estilo del botón principal, pero este es para Configuración */
+    background: linear-gradient(90deg, var(--color-acento), var(--color-acento-sec));
+    margin-bottom: 20px;
+}
+
+.perfil-acciones-alumno .reportar-link {
+    /* Reutilizamos el estilo del link de reporte para Cerrar Sesión, pero cambiamos el color */
+    color: #e74c3c; /* Color rojo para acción de cierre */
+    font-size: 1rem;
+    font-weight: 700;
+    display: block;
+}
+
+.perfil-acciones-alumno .reportar-link:hover {
+    color: #fff;
+}

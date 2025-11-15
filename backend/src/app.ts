@@ -6,6 +6,7 @@ import express from "express";
 import cors from "cors";
 import authRoutes from "./routes/authRoutes";
 import mentorRoutes from "./routes/mentorRoutes";
+import alumnoRoutes from "./routes/alumnoRoutes";
 import usuarioRoutes from "./routes/usuarioRoutes";
 import { requestLogger } from "./middlewares/requestLogger";
 
@@ -22,8 +23,10 @@ app.use(requestLogger);
 app.use("/auth", authRoutes);
 app.use("/usuarios", usuarioRoutes);
 app.use("/mentores", mentorRoutes);
+app.use("/alumnos", alumnoRoutes);
 
 export default app;
+
 
 
 

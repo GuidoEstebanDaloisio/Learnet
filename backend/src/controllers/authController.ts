@@ -1,4 +1,6 @@
 import { Request, Response } from "express";
+import { RequestConUsuario } from "../middlewares/authMiddleware";
+
 import bcrypt from "bcryptjs";
 import { TODOS_LOS_ROLES, ROLES } from "../constants/roles";
 import { UsuarioModel } from "../models/Usuario";
@@ -128,5 +130,35 @@ export const iniciarSesion = async (req: Request, res: Response) => {
   } catch (error) {
     console.error("Error al iniciar sesión:", error);
     res.status(500).json({ error: "Error al iniciar sesión" });
+  }
+};
+
+
+
+export const obtenerPerfil = async (req: RequestConUsuario, res: Response) => {
+  try {
+    const usuarioId = req.usuario.id; // viene del middleware
+    const usuario = await UsuarioModel.findById(usuarioId);
+
+    if (!usuario) return res.status(404).json({ error: "Usuario no encontrado" });
+
+    let perfil;
+    if (usuario.rol === "alumno") {
+      perfil = await AlumnoModel.findOne({ usuario: usuario._id });
+    } else if (usuario.rol === "mentor") {
+      perfil = await MentorModel.findOne({ usuario: usuario._id });
+    } else if (usuario.rol === "admin") {
+      perfil = await AdminModel.findOne({ usuario: usuario._id });
+    }
+
+    res.json({
+      id: usuario._id,
+      email: usuario.email,
+      rol: usuario.rol,
+      perfil,
+    });
+  } catch (error) {
+    console.error("Error al obtener perfil:", error);
+    res.status(500).json({ error: "Error al obtener perfil" });
   }
 };

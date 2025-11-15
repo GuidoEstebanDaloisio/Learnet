@@ -34,7 +34,7 @@ const handleSubmit = async (e: React.FormEvent) => {
       if (rol === "alumno") {
         navigate("/alumno/explorar-mentores");
       } else if (rol === "mentor") {
-        navigate("/mentor/dashboard"); // o la ruta que corresponda
+        navigate("/mentor/perfil"); // o la ruta que corresponda
       } else if (rol === "admin") {
         navigate("/admin/panel");
       } else {

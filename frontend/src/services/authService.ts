@@ -10,9 +10,20 @@ export const loginUsuario = async (data: any) => {
   return res.data;
 };
 
-export const obtenerPerfil = async (token: string) => {
+/*export const obtenerPerfil = async (token: string) => {
   const res = await api.get("/usuarios/perfil", {
     headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.data;
+};*/
+
+
+export const obtenerPerfilUsuario = async () => {
+  const token = localStorage.getItem("token");
+  const res = await api.get("/auth/me", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
   return res.data;
 };
