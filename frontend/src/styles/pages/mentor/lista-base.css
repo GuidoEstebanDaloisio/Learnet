@@ -1,0 +1,107 @@
+/* ==========================================
+   LISTA UNIVERSAL (GRID RESPONSIVE)
+   ========================================== */
+
+.lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    padding: 0;
+    margin: 40px 0;
+    list-style: none;
+}
+
+/* ==========================================
+   TARJETA UNIVERSAL
+   ========================================== */
+
+.item {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+
+    padding: 20px 24px;
+    backdrop-filter: blur(12px);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    transition: 0.25s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+}
+
+.item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0, 183, 255, 0.25);
+}
+
+/* ==========================================
+   TITULO DEL ITEM
+   ========================================== */
+
+.item-titulo {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #00b7ff;
+    margin-bottom: 10px;
+}
+
+/* ==========================================
+   SUBTEXTO / DETALLES
+   ========================================== */
+
+.item-detalle {
+    font-size: 0.95em;
+    color: #cfcfcf;
+    margin-top: 4px;
+}
+
+/* Para separar descripción o texto más largo */
+.item-descripcion {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed rgba(255,255,255,0.12);
+    color: #e0e0e0;
+    font-size: 0.95em;
+}
+
+/* ==========================================
+   SECCIÓN DE ACCIONES (botones)
+   ========================================== */
+
+.item-acciones {
+    margin-top: 18px;
+    display: flex;
+    gap: 10px;
+}
+
+.item-btn {
+    flex: 1;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.25s ease;
+}
+
+/* ACEPTAR */
+.item-btn-primario {
+    background: rgba(0, 150, 255, 0.8);
+    color: white;
+}
+
+.item-btn-primario:hover {
+    background: rgba(0, 170, 255, 1);
+}
+
+/* SECUNDARIO / RECHAZAR */
+.item-btn-secundario {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ddd;
+}
+
+.item-btn-secundario:hover {
+    background: rgba(255, 255, 255, 0.18);
+}

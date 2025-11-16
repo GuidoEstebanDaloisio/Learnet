@@ -1,4 +1,3 @@
-// src/routes/mentoriaRoutes.ts
 import { Router } from "express";
 import { crearMentoriaController, listarMentoriasDeMentor } from "../controllers/mentoriaController";
 import { verificarToken } from "../middlewares/authMiddleware";
