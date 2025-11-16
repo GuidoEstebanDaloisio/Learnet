@@ -21,8 +21,14 @@ export const NavbarMentor: React.FC = () => {
       <nav>
         <ul className="nav-links">
           <li>
-            <Link to="/mentoriasMentor" className="nav-link">
+            <Link to="/mentor/mis-mentorias" className="nav-link">
               Mis mentorías
+            </Link>
+          </li>
+
+          <li>
+            <Link to="/agendaMentor" className="nav-link">
+              Agenda
             </Link>
           </li>
 

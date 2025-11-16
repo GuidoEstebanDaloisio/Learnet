@@ -7,7 +7,7 @@ const router = Router();
 router.post("/register", registrarUsuario);
 router.post("/login", iniciarSesion);
 
-//ruta protegida
+
 router.get("/me", verificarToken, obtenerPerfil);
 
 

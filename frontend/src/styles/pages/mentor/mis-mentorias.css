@@ -1,0 +1,63 @@
+/* --- ESTILOS GENERALES DE LA LISTA --- */
+
+.lista-mentorias {
+    list-style: none; /* Eliminar los puntos por defecto */
+    padding: 0;
+    display: grid;
+    /* Crear una cuadrícula para que se vean como las tarjetas, 
+       ajustando la cantidad de columnas según el espacio */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px; /* Espacio entre las tarjetas */
+    margin: 30px 0;
+}
+
+/* --- ESTILOS PARA CADA ITEM (LA TARJETA) --- */
+
+.lista-mentorias li {
+    /* Efecto Glassmorphism */
+    background: rgba(255, 255, 255, 0.08); /* Fondo blanco muy transparente */
+    backdrop-filter: blur(10px); /* Efecto de desenfoque */
+    -webkit-backdrop-filter: blur(10px); /* Para compatibilidad con Safari */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Borde sutil */
+    border-radius: 15px; /* Bordes redondeados */
+    padding: 20px;
+    color: #f0f0f0; /* Color de texto claro para el fondo oscuro */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    cursor: pointer; /* Indica que es interactivo */
+
+    /* Sombra sutil y colorida para un efecto "flotante" */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* --- EFECTO HOVER (al pasar el ratón) --- */
+
+.lista-mentorias li:hover {
+    transform: translateY(-5px); /* Se eleva ligeramente */
+    /* Sombra más intensa con el color azul dominante */
+    box-shadow: 0 8px 20px rgba(0, 183, 255, 0.3); 
+}
+
+/* --- ESTILOS DE TIPOGRAFÍA DENTRO DEL ITEM --- */
+
+.lista-mentorias li strong {
+    /* Título principal de la mentoría */
+    display: block;
+    font-size: 1.25em;
+    color: #00b7ff; /* Color azul vibrante para el título */
+    margin-bottom: 8px;
+}
+
+.lista-mentorias li span {
+    /* Texto secundario (Tema, Descripción) */
+    display: block;
+    font-size: 0.9em;
+    color: #bdbdbd; /* Gris claro para el texto secundario */
+    margin-top: 4px;
+}
+
+/* Estilo específico para la descripción, si deseas diferenciarla */
+.lista-mentorias li span:nth-of-type(2) {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed rgba(255, 255, 255, 0.1); /* Separador sutil */
+}

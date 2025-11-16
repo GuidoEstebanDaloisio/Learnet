@@ -1,0 +1,77 @@
+.crear-mentoria-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 60px 20px;
+}
+
+.crear-mentoria-card {
+  background: #fff;
+  color: #222;
+  padding: 40px 50px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 650px;
+  text-align: left;
+}
+
+/* TÍTULO */
+.crear-mentoria-card h2 {
+  text-align: center;
+  color: #1e2a78;
+  margin-bottom: 25px;
+  font-size: 1.7rem;
+}
+
+/* FORM GROUP */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #1e2a78;
+}
+
+/* Inputs */
+.crear-mentoria-card input,
+.crear-mentoria-card textarea,
+.crear-mentoria-card select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+.crear-mentoria-card input:focus,
+.crear-mentoria-card textarea:focus,
+.crear-mentoria-card select:focus {
+  border-color: var(--color-acento);
+}
+
+/* TEXTAREA */
+.crear-mentoria-card textarea {
+  resize: none;
+  min-height: 120px;
+}
+
+/* Mensaje */
+.crear-mentoria-mensaje {
+  margin-top: 15px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .crear-mentoria-card {
+    padding: 30px 20px;
+  }
+}

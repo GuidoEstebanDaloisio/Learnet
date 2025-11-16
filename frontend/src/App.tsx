@@ -9,6 +9,8 @@ import { Explorar } from "./pages/usuario_alumno/Explorar";
 import { DetallesMentor } from "./pages/usuario_alumno/DetallesMentor";
 import { PerfilAlumno } from "./pages/usuario_alumno/PerfilAlumno";
 import { PerfilMentor } from "./pages/usuario_mentor/PerfilMentor";
+import { MisMentoriasMentor } from "./pages/usuario_mentor/MisMentoriasMentor";
+import { NuevaMentoria } from "./pages/usuario_mentor/NuevaMentoria";
 
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
         <Route path="/alumno/detalles-mentor/:id" element={<DetallesMentor />} />
 
         <Route path="/mentor/perfil" element={<PerfilMentor />} />
+        <Route path="/mentor/mis-mentorias" element={<MisMentoriasMentor />} />
+        <Route path="/mentor/crear-mentoria" element={<NuevaMentoria />} />
       </Routes>
     </Router>
   );
