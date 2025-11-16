@@ -5,7 +5,7 @@ export interface IReserva extends Document {
   mentor: mongoose.Types.ObjectId;
   habilidad: string;
   mensaje?: string;
-  estado: string;
+  estado: "pendiente" | "aceptada" | "rechazada";
   fechaSolicitud: Date;
 }
 
@@ -14,7 +14,7 @@ const ReservaSchema = new Schema<IReserva>({
   mentor: { type: Schema.Types.ObjectId, ref: "Mentor", required: true },
   habilidad: { type: String, required: true },
   mensaje: { type: String },
-  estado: { type: String, default: "pendiente" },
+  estado: {type: String,enum: ["pendiente", "aceptada", "rechazada"], default: "pendiente"},
   fechaSolicitud: { type: Date, default: Date.now }
 });
 

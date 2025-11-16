@@ -1,10 +1,12 @@
-// src/controllers/mentoriaController.ts
 import { Request, Response } from "express";
-import { crearMentoria, obtenerMentoriasDeMentor } from "../services/mentoriaService";
+import {crearMentoria, obtenerMentoriasDeMentor} from "../services/mentoriaService";
 
-export const crearMentoriaController = async (req: Request, res: Response) => {
+export const crearMentoriaController = async (req: any, res: Response) => {
   try {
-    const { mentorId, titulo, tema, descripcion } = req.body;
+    const { titulo, tema, descripcion } = req.body;
+
+    // ID del usuario autenticado (mentor)
+    const mentorId = req.usuario.id;
 
     const mentoria = await crearMentoria({
       mentorId,
@@ -27,8 +29,11 @@ export const crearMentoriaController = async (req: Request, res: Response) => {
 export const listarMentoriasDeMentor = async (req: Request, res: Response) => {
   try {
     const mentorId = req.params.id;
+
     const mentorias = await obtenerMentoriasDeMentor(mentorId);
+
     res.json(mentorias);
+
   } catch (error: any) {
     res.status(400).json({ error: error.message });
   }
