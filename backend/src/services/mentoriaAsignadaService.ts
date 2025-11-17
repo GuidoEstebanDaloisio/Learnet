@@ -58,3 +58,29 @@ export const crearMentoriaAsignada = async (input: CrearMentoriaAsignadaInput) =
   return mentoriaAsignada;
 };
 
+export const obtenerMentoriasAsignadasDeMentor = async (mentorId: string) => {
+  return await MentoriaAsignadaModel.find({ mentor: mentorId })
+    .populate("alumno", "nombre email")  // traer info básica del alumno
+    .populate("mentoria", "titulo tema descripcion") // traer info de la mentoria base
+    .sort({ fechaHora: 1 }); // ordenar por fecha
+};
+
+export const obtenerMentoriasAsignadasDeAlumno = async (alumnoId: string) => {
+  return await MentoriaAsignadaModel.find({ alumno: alumnoId })
+    .populate("mentor", "nombre email") // traer info básica del mentor
+    .populate("mentoria", "titulo tema descripcion") // info de la mentoria base
+    .sort({ fechaHora: 1 });
+};
+
+export const obtenerMentoriaAsignadaPorId = async (id: string) => {
+  const mentoria = await MentoriaAsignadaModel.findById(id)
+    .populate("mentor", "nombre email")        // info básica del mentor
+    .populate("alumno", "nombre email")        // info básica del alumno
+    .populate("mentoria", "titulo tema descripcion"); // info de la mentoría base
+
+  if (!mentoria) {
+    throw new Error("Mentoría asignada no encontrada");
+  }
+
+  return mentoria;
+};

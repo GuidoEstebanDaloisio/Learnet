@@ -1,0 +1,207 @@
+/* ===========================
+    VARIABLES DE COLOR (Tomadas del segundo código)
+=========================== */
+:root {
+  --color-acento: #00e0ff;
+  --color-acento-sec: #0099ff;
+  --color-texto: #fff;
+  --color-secundario: rgba(255, 255, 255, 0.85);
+  --color-verde: #2ecc71;
+  --color-amarillo: #f1c40f;
+  --color-rojo: #e74c3c;
+}
+
+/* ===========================
+    TARJETAS DE MENTORÍAS
+=========================== */
+
+.mentorias-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: 30px;
+}
+
+.mentoria-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  position: relative;
+  transition: all 0.3s;
+  overflow: hidden;
+  /* El color del texto principal de la tarjeta se asegura aquí si no se hereda del body */
+  color: var(--color-texto); 
+}
+
+.mentoria-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
+}
+
+/* Encabezado */
+.header-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.header-card img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid var(--color-acento); /* Usa la variable */
+  object-fit: cover;
+}
+
+.info {
+  text-align: left;
+}
+
+.info h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-texto); /* Asegura el color del título */
+}
+
+.info .area {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+}
+
+.info .rating {
+  color: var(--color-amarillo); /* Usa la variable */
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+/* Estado */
+.estado {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  background: var(--color-verde); /* Usa la variable */
+  color: #fff;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.estado.proxima {
+  background: var(--color-amarillo); /* Usa la variable */
+  color: #000;
+}
+
+.estado.finalizada {
+  background: var(--color-rojo); /* Usa la variable */
+}
+
+/* Detalles */
+.detalles {
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.detalles p {
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  color: var(--color-secundario); /* Establece un color claro para los detalles */
+}
+
+/* Barra de progreso */
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.progress-bar span {
+  display: block;
+  height: 100%;
+  /* Usa las variables para el degradado */
+  background: linear-gradient(90deg, var(--color-acento), var(--color-acento-sec));
+  border-radius: 5px;
+  transition: width 0.4s ease;
+}
+
+.progress-bar.completada span {
+  width: 100%;
+  background: var(--color-verde); /* Usa la variable */
+}
+
+/* Acciones */
+.acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-ver,
+.btn-chat {
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+  font-size: 0.9rem;
+  /* Asegura que el texto en los botones sea legible */
+  line-height: 1; 
+}
+
+.btn-ver {
+  /* Usa las variables para el degradado */
+  background: linear-gradient(90deg, var(--color-acento), var(--color-acento-sec));
+  color: #fff;
+  text-decoration: none;
+}
+
+.btn-ver:hover {
+  transform: scale(1.05);
+  /* Ajusta el color del box-shadow para que coincida con el acento */
+  box-shadow: 0 0 15px rgba(0, 224, 255, 0.6); 
+}
+
+.btn-chat {
+  background: transparent;
+  border: 1px solid var(--color-acento); /* Usa la variable */
+  color: var(--color-acento); /* Usa la variable */
+}
+
+.btn-chat:hover {
+  background: var(--color-acento); /* Usa la variable */
+  color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

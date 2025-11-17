@@ -1,20 +1,17 @@
 // src/routes/mentoriaAsignadaRoutes.ts
 import { Router } from "express";
-import {
-  listarMentoriasAsignadasDeMentor,
-  listarMentoriasAsignadasDeAlumno,
-  finalizarMentoriaAsignada,
-  cancelarMentoriaAsignada,
-} from "../controllers/mentoriaAsignadaController";
+import { listarMentoriasAsignadasDeMentor, listarMentoriasAsignadasDeAlumno, finalizarMentoriaAsignada, cancelarMentoriaAsignada, obtenerMentoriaAsignadaPorIdController} from "../controllers/mentoriaAsignadaController";
 import { verificarToken } from "../middlewares/authMiddleware";
 
 const router = Router();
 
 // Mentor ve sus sesiones asignadas
-router.get("/mentor", verificarToken, listarMentoriasAsignadasDeMentor);
+router.get("/mentor/:id", verificarToken, listarMentoriasAsignadasDeMentor);
 
 // Alumno ve sus sesiones asignadas
-router.get("/alumno", verificarToken, listarMentoriasAsignadasDeAlumno);
+router.get("/alumno/:id", verificarToken, listarMentoriasAsignadasDeAlumno);
+
+router.get("/:id", verificarToken, obtenerMentoriaAsignadaPorIdController);
 
 // Finalizar una sesión
 router.put("/finalizar/:id", verificarToken, finalizarMentoriaAsignada);

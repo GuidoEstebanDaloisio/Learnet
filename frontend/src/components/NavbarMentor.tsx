@@ -33,7 +33,7 @@ export const NavbarMentor: React.FC = () => {
           </li>
 
           <li>
-            <Link to="/agendaMentor" className="nav-link">
+            <Link to="/mentor/agenda" className="nav-link">
               Agenda
             </Link>
           </li>

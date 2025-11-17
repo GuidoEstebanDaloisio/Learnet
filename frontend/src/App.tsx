@@ -13,6 +13,10 @@ import { MisMentoriasMentor } from "./pages/usuario_mentor/MisMentoriasMentor";
 import { NuevaMentoria } from "./pages/usuario_mentor/NuevaMentoria";
 import { SolicitudesMentor } from "./pages/usuario_mentor/SolicitudesMentor";
 import { AsignarMentoria } from "./pages/usuario_mentor/AsignarMentoria";
+import { Agenda } from "./pages/usuario_mentor/Agenda";
+import { MisMentoriasAlumno } from "./pages/usuario_alumno/MisMentoriasAlumno";
+import { DetalleMentoriaAlumno } from "./pages/usuario_alumno/DetalleMentoriaAlumno";
+import { DetalleMentoriaMentor } from "./pages/usuario_mentor/DetalleMentoriaMentor";
 
 function App() {
   return (
@@ -28,15 +32,17 @@ function App() {
         <Route path="/alumno/perfil" element={<PerfilAlumno />} />
         <Route path="/alumno/explorar-mentores" element={<Explorar />} />
         <Route path="/alumno/detalles-mentor/:id" element={<DetallesMentor />} />
+        <Route path="/alumno/mis-mentorias" element={<MisMentoriasAlumno />} />
+        <Route path="/alumno/detalle-mentoria/:mentoriaId" element={<DetalleMentoriaAlumno />} />
+
 
         <Route path="/mentor/perfil" element={<PerfilMentor />} />
         <Route path="/mentor/solicitudes" element={<SolicitudesMentor />} />
         <Route path="/mentor/mis-mentorias" element={<MisMentoriasMentor />} />
         <Route path="/mentor/crear-mentoria" element={<NuevaMentoria />} />
-
-
-
         <Route path="/mentor/asignar-mentoria/:reservaId/:habilidad" element={<AsignarMentoria />} />
+        <Route path="/mentor/agenda" element={<Agenda />} />
+        <Route path="/mentor/detalle-mentoria/:mentoriaId" element={<DetalleMentoriaMentor />} />
       </Routes>
     </Router>
   );

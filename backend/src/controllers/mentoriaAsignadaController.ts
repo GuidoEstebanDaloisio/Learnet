@@ -1,35 +1,24 @@
 // src/controllers/mentoriaAsignadaController.ts
 import { Request, Response } from "express";
 import { MentoriaAsignadaModel } from "../models/MentoriaAsignada";
-import { crearMentoriaAsignada } from "../services/mentoriaAsignadaService";
+import { obtenerMentoriasAsignadasDeMentor, obtenerMentoriasAsignadasDeAlumno, obtenerMentoriaAsignadaPorId } from "../services/mentoriaAsignadaService";
 
-export const listarMentoriasAsignadasDeMentor = async (req: any, res: Response) => {
+export const listarMentoriasAsignadasDeMentor = async (req: Request, res: Response) => {
   try {
-    const mentorId = req.usuario.id;
-
-    const mentorias = await MentoriaAsignadaModel.find({ mentor: mentorId })
-      .populate("plantilla")
-      .populate("alumno")
-      .sort({ fechaHora: 1 });
-
+    const mentorId = req.params.id;
+    const mentorias = await obtenerMentoriasAsignadasDeMentor(mentorId);
     res.json(mentorias);
-
   } catch (error: any) {
     res.status(400).json({ error: error.message });
   }
 };
 
-export const listarMentoriasAsignadasDeAlumno = async (req: any, res: Response) => {
+// Listar mentorías asignadas de un alumno
+export const listarMentoriasAsignadasDeAlumno = async (req: Request, res: Response) => {
   try {
-    const alumnoId = req.usuario.id;
-
-    const mentorias = await MentoriaAsignadaModel.find({ alumno: alumnoId })
-      .populate("plantilla")
-      .populate("mentor")
-      .sort({ fechaHora: 1 });
-
+    const alumnoId = req.params.id;
+    const mentorias = await obtenerMentoriasAsignadasDeAlumno(alumnoId);
     res.json(mentorias);
-
   } catch (error: any) {
     res.status(400).json({ error: error.message });
   }
@@ -64,6 +53,17 @@ export const cancelarMentoriaAsignada = async (req: Request, res: Response) => {
 
     res.json({ mensaje: "Mentoría cancelada", mentoria });
 
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+
+export const obtenerMentoriaAsignadaPorIdController = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const mentoria = await obtenerMentoriaAsignadaPorId(id);
+    res.json(mentoria);
   } catch (error: any) {
     res.status(400).json({ error: error.message });
   }

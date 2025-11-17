@@ -27,7 +27,7 @@ export const NavbarAlumno: React.FC = () => {
           </li>
 
           <li>
-            <Link to="/mentoriasAlumno" className="nav-link">
+            <Link to="/alumno/mis-mentorias" className="nav-link">
               Mis mentorías
             </Link>
           </li>

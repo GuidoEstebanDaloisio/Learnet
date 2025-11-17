@@ -1,0 +1,155 @@
+/* ===========================
+   VARIABLES DE COLOR
+=========================== */
+:root {
+  --color-acento: #00e0ff;
+  --color-acento-sec: #0099ff;
+  --color-texto: #fff;
+  --color-secundario: rgba(255, 255, 255, 0.85);
+  --color-verde: #2ecc71;
+  --color-amarillo: #f1c40f;
+  --color-rojo: #e74c3c;
+}
+
+/* ===========================
+   CONTENEDOR DETALLE MENTORÍA
+=========================== */
+.detalles-mentoria-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 20px;
+  color: var(--color-texto);
+}
+
+.breadcrumb {
+  font-size: 0.9rem;
+  color: var(--color-secundario);
+  margin-bottom: 15px;
+}
+
+.breadcrumb a {
+  color: var(--color-acento);
+  text-decoration: none;
+}
+
+/* GRID RESUMEN */
+.mentor-resumen-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+}
+
+/* CARD DEL MENTOR */
+.card-mentor-detalles {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  padding: 20px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.card-mentor-detalles img.mentor-foto {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid var(--color-acento);
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.card-mentor-detalles h3 {
+  margin: 5px 0;
+  font-size: 1.2rem;
+}
+
+.card-mentor-detalles .area-experiencia {
+  font-size: 0.9rem;
+  color: var(--color-secundario);
+  margin-bottom: 5px;
+}
+
+.card-mentor-detalles .rating-detalles {
+  color: var(--color-amarillo);
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.card-mentor-detalles .contacto-acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card-mentor-detalles .btn,
+.card-mentor-detalles .btn-sesion {
+  border: none;
+  border-radius: 20px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+  font-size: 0.9rem;
+}
+
+.card-mentor-detalles .btn-sesion {
+  background: linear-gradient(90deg, var(--color-acento), var(--color-acento-sec));
+  color: #fff;
+}
+
+.card-mentor-detalles .btn-sesion:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0, 224, 255, 0.6);
+}
+
+.card-mentor-detalles .btn {
+  background: transparent;
+  border: 1px solid var(--color-acento);
+  color: var(--color-acento);
+}
+
+.card-mentor-detalles .btn:hover {
+  background: var(--color-acento);
+  color: #fff;
+}
+
+/* RESUMEN DE LA MENTORÍA */
+.resumen-mentoria {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  padding: 25px;
+  border-radius: 20px;
+}
+
+.resumen-mentoria h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.resumen-mentoria p {
+  color: var(--color-secundario);
+  margin-bottom: 10px;
+}
+
+.resumen-mentoria ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.resumen-mentoria ul li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 8px;
+  color: var(--color-secundario);
+}
+
+.resumen-mentoria ul li::before {
+  position: absolute;
+  left: 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .mentor-resumen-grid {
+    grid-template-columns: 1fr;
+  }
+}
