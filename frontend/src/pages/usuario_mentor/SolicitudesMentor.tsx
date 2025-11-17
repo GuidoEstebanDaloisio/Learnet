@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { obtenerPerfilUsuario } from "../../services/authService";
 import { obtenerSolicitudesParaMentor } from "../../services/reservaService";
 import { NavbarMentor } from "../../components/NavbarMentor";
@@ -14,7 +15,7 @@ export const SolicitudesMentor: React.FC = () => {
   useEffect(() => {
     const loadPerfil = async () => {
       const perfil = await obtenerPerfilUsuario();
-      setMentorId(perfil.perfil?._id); // ID del mentor
+      setMentorId(perfil.perfil?._id);
     };
     loadPerfil();
   }, []);
@@ -31,7 +32,7 @@ export const SolicitudesMentor: React.FC = () => {
     loadSolicitudes();
   }, [mentorId]);
 
-   return (
+  return (
     <>
       <NavbarMentor />
 
@@ -44,43 +45,24 @@ export const SolicitudesMentor: React.FC = () => {
         <ul className="lista">
           {solicitudes.map((s) => (
             <li key={s._id} className="item">
+              <h3 className="item-titulo">{s.alumno?.nombre || "Alumno sin nombre"}</h3>
+              <span className="item-detalle"><strong>Habilidad solicitada:</strong> {s.habilidad}</span>
+              <span className="item-detalle"><strong>Estado:</strong> {s.estado}</span>
+              <span className="item-detalle"><strong>Fecha:</strong> {new Date(s.fechaSolicitud).toLocaleString()}</span>
+              {s.mensaje && <p className="item-descripcion">{s.mensaje}</p>}
 
-              {/* NOMBRE ALUMNO */}
-              <h3 className="item-titulo">
-                {s.alumno?.nombre || "Alumno sin nombre"}
-              </h3>
-
-              {/* DETALLES */}
-              <span className="item-detalle">
-                <strong>Habilidad solicitada:</strong> {s.habilidad}
-              </span>
-
-              <span className="item-detalle">
-                <strong>Estado:</strong> {s.estado}
-              </span>
-
-              <span className="item-detalle">
-                <strong>Fecha:</strong> {new Date(s.fechaSolicitud).toLocaleString()}
-              </span>
-
-              {/* MENSAJE DEL ALUMNO */}
-              {s.mensaje && (
-                <p className="item-descripcion">
-                  {s.mensaje}
-                </p>
-              )}
-
-              {/* ACCIONES */}
               <div className="item-acciones">
-                <button className="item-btn item-btn-primario">
+                <Link
+                  className="item-btn item-btn-primario"
+                  to={`/mentor/asignar-mentoria/${s._id}/${encodeURIComponent(s.habilidad)}`}
+                >
                   Aceptar
-                </button>
+                </Link>
 
                 <button className="item-btn item-btn-secundario">
                   Rechazar
                 </button>
               </div>
-
             </li>
           ))}
         </ul>

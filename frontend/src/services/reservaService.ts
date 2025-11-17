@@ -13,3 +13,14 @@ export const obtenerSolicitudesParaMentor = async (mentorId: string) => {
   const res = await api.get(`/reservas/mentor/${mentorId}`);
   return res.data;
 };
+
+export const aceptarReserva = async (
+  reservaId: string,
+  data: {
+    fechaHora: string;
+    linkMeet: string;
+    mentoriaId: string; 
+  }
+) => {
+  return await api.put(`/reservas/aceptar/${reservaId}`, data);
+};

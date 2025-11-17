@@ -15,7 +15,7 @@ router.post("/solicitar", verificarToken, crearReservaController);
 // Listar solicitudes recibidas por el mentor
 router.get("/mentor/:id", verificarToken, listarSolicitudesParaMentor);
 
-// Aceptar reserva y asignar mentoría
-router.post("/aceptar/:id", verificarToken, aceptarReservaController);
+// Aceptar una reserva y crear MentoriaAsignada (Ruta protegida para mentores)
+router.put("/aceptar/:id", verificarToken, aceptarReservaController);
 
 export default router;

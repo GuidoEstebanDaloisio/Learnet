@@ -12,7 +12,7 @@ import { PerfilMentor } from "./pages/usuario_mentor/PerfilMentor";
 import { MisMentoriasMentor } from "./pages/usuario_mentor/MisMentoriasMentor";
 import { NuevaMentoria } from "./pages/usuario_mentor/NuevaMentoria";
 import { SolicitudesMentor } from "./pages/usuario_mentor/SolicitudesMentor";
-
+import { AsignarMentoria } from "./pages/usuario_mentor/AsignarMentoria";
 
 function App() {
   return (
@@ -33,6 +33,10 @@ function App() {
         <Route path="/mentor/solicitudes" element={<SolicitudesMentor />} />
         <Route path="/mentor/mis-mentorias" element={<MisMentoriasMentor />} />
         <Route path="/mentor/crear-mentoria" element={<NuevaMentoria />} />
+
+
+
+        <Route path="/mentor/asignar-mentoria/:reservaId/:habilidad" element={<AsignarMentoria />} />
       </Routes>
     </Router>
   );

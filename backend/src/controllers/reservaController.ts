@@ -2,11 +2,8 @@
 import { Request, Response } from "express";
 import { RequestConUsuario } from "../middlewares/authMiddleware";
 
-import {
-  crearReservaService,
-  obtenerSolicitudesParaMentor,
-  aceptarReservaService
-} from "../services/reservaService";
+import {crearReservaService, obtenerSolicitudesParaMentor} from "../services/reservaService";
+import {crearMentoriaAsignada} from "../services/mentoriaAsignadaService";
 
 
 export const crearReservaController = async (
@@ -50,26 +47,23 @@ export const listarSolicitudesParaMentor = async (req: Request, res: Response) =
   }
 };
 
-
-export const aceptarReservaController = async (req: any, res: Response) => {
+export const aceptarReservaController = async (req: Request, res: Response) => {
   try {
     const reservaId = req.params.id;
-    const mentorId = req.usuario.id;
-    const { fechaHora, linkMeet } = req.body;
+    const { fechaHora, linkMeet, mentoriaId } = req.body;
 
-    if (!fechaHora) throw new Error("La fecha y hora de la sesión es obligatoria");
-    if (!linkMeet) throw new Error("El link de videollamada es obligatorio");
-
-    const resultado = await aceptarReservaService({
+    const mentoriaAsignada = await crearMentoriaAsignada({
       reservaId,
-      mentorId,
-      fechaHora,
+      mentoriaId, 
+      fechaHora: new Date(fechaHora),
       linkMeet,
     });
 
-    res.json(resultado);
-
+    return res.status(201).json({
+      mensaje: "Reserva aceptada y mentoría asignada creada",
+      mentoriaAsignada,
+    });
   } catch (error: any) {
-    res.status(400).json({ error: error.message });
+    return res.status(400).json({ error: error.message });
   }
 };

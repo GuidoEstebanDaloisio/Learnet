@@ -84,15 +84,6 @@ const handleSubmit = async (e: React.FormEvent) => {
               Ingresar
             </button>
 
-            <div className="role-buttons">
-              <a href="/" className={buttons["btn-secondary"]}>
-                Mentor
-              </a>
-              <a href="/alumno/explorar-mentores" className={buttons["btn-secondary"]}>
-                Mentorizado
-              </a>
-            </div>
-
             <p className="register-text">
               ¿No tenés cuenta? <a href="/registro">Registrate</a>
             </p>

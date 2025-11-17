@@ -2,7 +2,7 @@ import { MentoriaModel } from "../models/Mentoria";
 import { MentorModel } from "../models/Mentor";
 
 interface CrearMentoriaInput {
-  mentorId: string;        // ID del usuario (no del mentor)
+  mentorId: string;
   titulo: string;
   tema: string;
   descripcion: string;

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import {crearMentoria, obtenerMentoriasDeMentor} from "../services/mentoriaService";
+import {crearMentoria, obtenerMentoriasDeMentor, obtenerMentoriasPorMentorYTema} from "../services/mentoriaService";
 
 export const crearMentoriaController = async (req: any, res: Response) => {
   try {
@@ -34,6 +34,21 @@ export const listarMentoriasDeMentor = async (req: Request, res: Response) => {
 
     res.json(mentorias);
 
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+
+export const listarMentoriasPorMentorYTema = async (req: Request, res: Response) => {
+  try {
+    const mentorId = req.params.id;
+    const tema = req.params.tema;  // <--- CORREGIDO
+
+    if (!tema) return res.status(400).json({ error: "Falta el parámetro 'tema'" });
+
+    const mentorias = await obtenerMentoriasPorMentorYTema(mentorId, tema);
+    res.json(mentorias);
   } catch (error: any) {
     res.status(400).json({ error: error.message });
   }

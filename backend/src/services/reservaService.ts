@@ -1,10 +1,13 @@
 // src/services/reservaService.ts
-import { ReservaModel } from "../models/Reserva";
-import { MentorModel } from "../models/Mentor";
+import { ReservaModel, IReserva } from "../models/Reserva";
+import {IMentoria, MentoriaModel} from "../models/Mentoria";
+import { MentorModel, } from "../models/Mentor";
 import { AlumnoModel } from "../models/Alumno";
 
 import { obtenerMentoriasPorMentorYTema } from "./mentoriaService";
 import { crearMentoriaAsignada } from "./mentoriaAsignadaService";
+
+import mongoose from "mongoose";
 
 interface CrearReservaInput {
   mentorId: string;
@@ -43,14 +46,14 @@ export const obtenerSolicitudesParaMentor = async (mentorId: string) => {
 };
 
 export const actualizarEstadoReserva = async (
-  reservaId: string,
+  reservaId: mongoose.Types.ObjectId | string,
   nuevoEstado: "aceptada" | "rechazada",
-  mentorId: string
+  mentorId: mongoose.Types.ObjectId | string
 ) => {
   const reserva = await ReservaModel.findById(reservaId);
   if (!reserva) throw new Error("Reserva no encontrada");
 
-  if (reserva.mentor.toString() !== mentorId)
+  if (reserva.mentor.toString() !== mentorId.toString())
     throw new Error("No autorizado para modificar esta solicitud");
 
   if (reserva.estado !== "pendiente")
@@ -62,43 +65,72 @@ export const actualizarEstadoReserva = async (
   return reserva;
 };
 
-
-// ⭐⭐⭐ NUEVO: Servicio completo para aceptar y asignar una mentoría ⭐⭐⭐
-export const aceptarReservaService = async (params: {
-  reservaId: string;
+interface AceptarReservaInput {
+  reservaId: String;
   mentorId: string;
-  fechaHora: string;
+  mentoriaId: string; // ID de la plantilla de Mentoria que se usará
+  fechaHora: Date;
   linkMeet: string;
-}) => {
-  const { reservaId, mentorId, fechaHora, linkMeet } = params;
+}
 
-  // Cambiar estado
-  const reserva = await actualizarEstadoReserva(reservaId, "aceptada", mentorId);
+/**
+ * Proceso de aceptación de una reserva:
+ * 1. Valida la existencia de la reserva y la mentoria.
+ * 2. Crea la MentoriaAsignada.
+ * 3. Cambia el estado de la Reserva a "aceptada".
+ * @param input Datos para la aceptación.
+ * @returns La MentoriaAsignada creada.
+ */
+export const aceptarReservaService = async (input: AceptarReservaInput) => {
+  const { reservaId, mentoriaId, mentorId, fechaHora, linkMeet } = input;
 
-  // Buscar plantillas del mentor según habilidad
-  const plantillas = await obtenerMentoriasPorMentorYTema(
-    reserva.mentor.toString(),
-    reserva.habilidad
-  );
+  // 1. Buscar y validar la Reserva
+  const reserva = await ReservaModel.findById(reservaId);
+  if (!reserva) {
+    throw new Error("Reserva no encontrada");
+  }
 
-  if (plantillas.length === 0)
-    throw new Error("No hay mentorías creadas para esta habilidad");
+  if (reserva.mentor.toString() !== mentorId) {
+    // Validar que el mentor que acepta es el dueño de la reserva
+    throw new Error("El mentor no está autorizado para aceptar esta reserva");
+  }
 
-  const plantillaElegida = plantillas[0];
+  if (reserva.estado !== "pendiente") {
+    throw new Error(
+      `La reserva ya fue ${reserva.estado}. No se puede aceptar.`
+    );
+  }
 
-  // Crear la sesión asignada
-  const cita = await crearMentoriaAsignada({
-    reservaId,
-    plantillaId: plantillaElegida._id.toString(),
-    mentorId: reserva.mentor.toString(),
-    alumnoId: reserva.alumno.toString(),
-    fechaHora: new Date(fechaHora),
-    linkMeet: linkMeet.trim(),
+  // 2. Buscar y validar la plantilla de Mentoria
+  const mentoriaPlantilla = await mongoose.model("Mentoria").findById(mentoriaId);
+  if (!mentoriaPlantilla) {
+    throw new Error("Plantilla de Mentoria no encontrada");
+  }
+
+  if (
+    mentoriaPlantilla.mentor.toString() !== mentorId ||
+    mentoriaPlantilla.tema !== reserva.habilidad
+  ) {
+    // Es crucial que la plantilla sea del mentor y corresponda al tema de la solicitud
+    throw new Error(
+      "La plantilla de Mentoria no es válida para esta solicitud"
+    );
+  }
+
+  // 3. Crear la MentoriaAsignada
+  const nuevaMentoriaAsignada = await crearMentoriaAsignada({
+    reservaId: reserva._id.toString(),
+    mentoriaId: mentoriaPlantilla._id,
+    mentorId: reserva.mentor, // ID de Mentor (colección Mentor)
+    alumnoId: reserva.alumno, // ID de Alumno (colección Alumno)
+    fechaHora,
+    linkMeet,
   });
 
-  return {
-    mensaje: "Reserva aceptada y mentoría asignada",
-    reserva,
-    cita,
-  };
+  // 4. Actualizar el estado de la Reserva a "aceptada"
+  reserva.estado = "aceptada";
+  await reserva.save();
+
+  // Opcional: podrías devolver un objeto con la reserva actualizada y la mentoria asignada
+  return nuevaMentoriaAsignada;
 };
